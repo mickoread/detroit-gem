@@ -84,7 +84,10 @@ module Indexer
     #
     def scm
       return nil unless root
-      @scm ||= %w{git hg}.find{ |m| (root + ".#{m}").directory? }.to_sym
+      @scm ||= begin
+        match = %w{git hg}.find{ |m| (root + ".#{m}").directory? }
+        match.to_sym if match
+      end
     end
 
     #
